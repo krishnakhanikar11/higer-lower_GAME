@@ -1,51 +1,29 @@
-from art import logo 
-from art import vs
-import random
-from game_data import data
-from replit import clear
-
 print(logo)
+  print(f"your Current score is {score}")
+  random_a=random_b
+  random_b = random.choice(data)
+  if random_a == random_b:
+    random_b=random.choice(data)
+  
+  a_follower= random_a["follower_count"]
+  b_follower= random_b["follower_count"]
 
-score = 0
-game_continue = True
-account_b= random.choice(data)
+  def details(random_ab):
+    a_name=random_ab["name"]
+    a_desc=random_ab["description"]
+    a_country=random_ab["country"]
+    return f"{a_name}, a {a_desc}, from {a_country}"
 
-while game_continue:
-  account_a= account_b
-  account_b= random.choice(data)
-  if account_a==account_b:
-    account_b=random.choice(data)
-
-  def acc(account):
-    account_name=account["name"]
-    account_descp=account["description"]    
-    account_country=account["country"]
-    return f"{account_name},a {account_descp},from {account_country}"
-
-
-  def ans_check(guess,account_follower_a,account_follower_b):
-    if account_follower_a>account_follower_b:
-      return guess=="a"
-    else:
-      return guess=="b"
-    
-
-  print("Welcome to Higer Lower game")
-  print(f"Compare A:{acc(account_a)}")
+ 
+  print(details(random_a))
   print(vs)
-  print(f"Compare B:{acc(account_b)}")
-  guess = input("Who has more follower? A or B :").lower()
-  account_follower_a=account_a["follower_count"]
-  account_follower_b=account_b["follower_count"]
+  print(details(random_b))
+  guess = input("Who has more followers? Type 'A' or 'B':")
+  if (guess=="a" and a_follower > b_follower) or (guess=="b" and b_follower > a_follower):
+    
+    score = score +1
 
-  is_answer=ans_check(guess,account_follower_a,account_follower_b)
-
-  if is_answer:
-    clear()
-    score+=1
-    print(f"you got it right. {score}")
-      
   else:
     clear()
-    print(f"game over{score}")
-    game_continue=False
+    ans_correct=False
+    print(f"Game over. Your score is{score}")
